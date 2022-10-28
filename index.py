@@ -1,4 +1,3 @@
-from enum import IntEnum
 import Xpath_Performance as rpa
 import time
 import openpyxl
@@ -26,6 +25,7 @@ linha = 2
 while True:
     codigoProduto = aba[f'A{linha}'].value
     codigoEan = aba[f'B{linha}'].value
+    print(f'Codigo do Produto: {codigoProduto} - Codigo EAN: {codigoEan} - Linha: {linha}')
 
     #Pesquisar produto
     rpa.rpa_sel_texto('/html/body/div[2]/div[6]/div[2]/div[3]/div[2]/div[2]/div/div[3]/table/thead/tr[2]/td[4]/span/input')
@@ -35,18 +35,20 @@ while True:
     #Verifica o tempo
     rpa.rpa_click('//*[@id="d50480c10000g_CODIGO"]')
 
-    #Verificar o registro
+    #Verificar o registro + Condição core
     registro = rpa.rpa_texto_xpath('/html/body/div[2]/div[6]/div[2]/div[3]/div[2]/div[2]/div/div[63]/span/span[1]')
     registro = registro[0]
     registro = int(registro)
     if registro >= 1:
         rpa.rpa_click_duplo('//*[@id="d50480c10000g"]/colgroup')
+        rpa.rpa_click('//*[@id="d50480c33"]')
+        rpa.rpa_env_texto('//*[@id="d50480c33"]', codigoEan)
+        rpa.rpa_click('/html/body/div[2]/div[6]/div[2]/div[3]/div[1]/ul/a[1]')
+        time.sleep(1)
+        rpa.rpa_click('//*[@id="dialog-50480"]/div[1]/button/i')
+    linha += 1
 
-        # ULTIMA LINHA ENTRA NA TELA DO PRODUTO
-        # FALTA CADASTRAR O EAN DO PRODUTO
-        # DEPOIS SALVAR (VERIFICANDO O TEMPO DE SALVAMENTO)
-        # DEPOIS RETORNAR PARA A TELA DE PESQUISA
-        # E REFAZER O LOOP
+        
 
     
 
