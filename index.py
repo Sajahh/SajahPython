@@ -1,6 +1,7 @@
 import Xpath_Performance as rpa
 import time
 import openpyxl
+import pyautogui
 
 #Abre o navegador
 rpa.rpa_site('https://app.omie.com.br/gestao/base-ed6krt/')
@@ -44,9 +45,12 @@ while True:
         rpa.rpa_click('//*[@id="d50480c33"]')
         rpa.rpa_env_texto('//*[@id="d50480c33"]', codigoEan)
         rpa.rpa_click('/html/body/div[2]/div[6]/div[2]/div[3]/div[1]/ul/a[1]')
-        time.sleep(1)
+        time.sleep(2)
         rpa.rpa_click('//*[@id="dialog-50480"]/div[1]/button/i')
     linha += 1
+    if linha >= 6:
+        pyautogui.alert('Me da meu sushi')
+        break
 
         
 
